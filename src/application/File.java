@@ -1,26 +1,42 @@
 package application;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.Scanner;
 
 public class File {
 
 	public static void main(String[] args) {
 		
-		String [] lines = new String[] {"Good Morning","Good afternoon","Google night"};
+		Scanner sc = new Scanner (System.in);
 		
-		String path = "C:\\Users\\mlwkt500\\Documents\\out.txt";
+		//Para retornar quais pastas estao em um caminho expecificado
+		System.out.println("Enter a folder path: ");
+		String strPath = sc.nextLine();
 		
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))){ //colocando o true apos a variavel, ele complementa o arquivo ao inves de recria-lo
-			for (String line : lines) {
-				bw.write(line); //Insere uma linha
-				bw.newLine(); //dá uma quebra de linha
-			}
+		java.io.File path = new java.io.File(strPath); //instanciando o objeto
+		
+		java.io.File[] folders = path.listFiles(java.io.File::isDirectory); // cria um vetor do tipo file. Listar somente o que é diretorio ou pasta
+		
+		System.out.println("Folders: ");
+		for (java.io.File folder : folders) {
+			System.out.println(folder); //faz um for para imprimir cada caminho das pastas
 		}
-		catch (IOException e) {
-			e.printStackTrace();// irá imprimir o erro
+		
+		//Para retornar quais arquivos
+		
+		java.io.File[] files = path.listFiles(java.io.File :: isFile);
+		
+		System.out.println();
+		System.out.println("Files: ");
+		for(java.io.File file : files) {
+			System.out.println(file);
 		}
+		
+		//para criar uma sub pasta
+		
+		boolean success = new java.io.File(strPath + "\\subdir").mkdir(); //irá criar uma sub pasta chamado subdir a partir da pasta que eu declarar
+		//Irá retornar um boolean (F/V) se der certo criar a pasta ou não
+		System.out.println("Directory created successfully " + success);
+		sc.close();
 	}
 
 }
