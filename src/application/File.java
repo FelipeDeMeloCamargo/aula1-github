@@ -20,7 +20,6 @@ public class File {
 		for (java.io.File folder : folders) {
 			System.out.println(folder); //faz um for para imprimir cada caminho das pastas
 		}
-		
 		//Para retornar quais arquivos
 		
 		java.io.File[] files = path.listFiles(java.io.File :: isFile);
@@ -38,5 +37,6 @@ public class File {
 		System.out.println("Directory created successfully " + success);
 		sc.close();
 	}
-
+	
+	
 }
